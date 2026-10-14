@@ -1,0 +1,299 @@
+:root {
+  --g: #0b3d2e;
+  --g2: #07261c;
+  --gold: #e8b93a;
+  --gold2: #b8861b;
+  --red: #e2231a;
+  --w: #fff;
+  --vh: 1vh;
+}
+@supports (height: 1dvh) {
+  :root { --vh: 1dvh; }
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: Montserrat, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color: var(--w);
+  background: var(--g2);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+img, svg { display: block; }
+
+/* ---------- Sahifa ---------- */
+.page {
+  position: relative;
+  min-height: 100vh;
+  min-height: calc(100 * var(--vh));
+  height: calc(100 * var(--vh));
+  display: flex;
+  flex-direction: column;
+  padding:
+    max(10px, env(safe-area-inset-top))
+    max(16px, env(safe-area-inset-right))
+    max(12px, env(safe-area-inset-bottom))
+    max(16px, env(safe-area-inset-left));
+  overflow: hidden;
+  isolation: isolate;
+}
+.page::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(7, 38, 28, .55), rgba(7, 38, 28, .7) 45%, rgba(7, 38, 28, .95)),
+    url(./assets/plan.webp) center 40% / cover no-repeat;
+}
+
+/* ---------- Tepa: logo + taymer ---------- */
+.top {
+  flex: none;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: clamp(48px, calc(10 * var(--vh)), 110px);
+}
+.logo { height: 100%; width: auto; }
+
+.timer {
+  position: absolute;
+  top: max(10px, env(safe-area-inset-top));
+  right: max(12px, env(safe-area-inset-right));
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 10px 5px;
+  border-radius: 12px;
+  background: rgba(7, 38, 28, .85);
+  border: 1.5px solid var(--gold);
+  line-height: 1.1;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .35);
+  transition: background .3s, border-color .3s;
+}
+.timer small { font-size: 9px; font-weight: 600; letter-spacing: .02em; opacity: .85; }
+.timer b {
+  font-size: clamp(20px, 5.4vw, 28px);
+  font-weight: 800;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .03em;
+}
+.timer.hot {
+  background: var(--red);
+  border-color: #fff;
+  animation: shake .6s ease-in-out infinite;
+  box-shadow: 0 0 0 0 rgba(226, 35, 26, .7), 0 4px 14px rgba(0, 0, 0, .35);
+}
+.timer.hot b { color: #fff; }
+.timer.done { opacity: .75; }
+@keyframes shake {
+  0%, 100% { transform: rotate(0) scale(1); }
+  20% { transform: rotate(-9deg) scale(1.08); }
+  40% { transform: rotate(8deg) scale(1.08); }
+  60% { transform: rotate(-6deg) scale(1.04); }
+  80% { transform: rotate(4deg) scale(1.02); }
+}
+
+/* ---------- Asosiy qism ---------- */
+.main {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: clamp(6px, calc(1.4 * var(--vh)), 14px);
+  --cap: clamp(44px, calc(7.4 * var(--vh)), 78px);
+}
+
+/* Mashina ramkadan tashqariga chiqadi */
+.car {
+  position: relative;
+  flex: 0 1 auto;
+  height: calc(.47 * min(100vw, 620px) + var(--cap) + 24px);
+  min-height: 150px;
+  margin-top: clamp(6px, calc(1.5 * var(--vh)), 16px);
+}
+.frame {
+  position: absolute;
+  inset: 30% 0 0 0;
+  border: 2px solid var(--gold);
+  border-radius: 18px;
+  background:
+    radial-gradient(120% 90% at 50% 30%, rgba(30, 110, 80, .55), transparent 70%),
+    linear-gradient(160deg, rgba(11, 61, 46, .95), rgba(7, 38, 28, .95));
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .4), inset 0 0 0 1px rgba(255, 255, 255, .05);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.onix {
+  position: absolute;
+  left: 3%;
+  width: 94%;
+  top: 0;
+  height: calc(100% - var(--cap) + 6px);
+  object-fit: contain;
+  object-position: center bottom;
+  filter: drop-shadow(0 14px 12px rgba(0, 0, 0, .55));
+  pointer-events: none;
+}
+.cap {
+  text-align: center;
+  padding: 0 10px clamp(6px, calc(1.2 * var(--vh)), 12px);
+  line-height: 1.1;
+}
+.cap b {
+  display: block;
+  color: var(--gold);
+  font-weight: 900;
+  font-size: clamp(18px, min(6.4vw, calc(3.4 * var(--vh))), 34px);
+}
+.cap span {
+  display: block;
+  font-weight: 800;
+  font-size: clamp(11px, min(3.6vw, calc(1.9 * var(--vh))), 17px);
+}
+
+/* Katta aksiya */
+.side { flex: none; display: flex; flex-direction: column; gap: clamp(6px, calc(1.3 * var(--vh)), 14px); text-align: center; }
+.big {
+  font-weight: 900;
+  line-height: .95;
+  letter-spacing: .01em;
+  color: var(--gold);
+  font-size: clamp(34px, min(12.2vw, calc(7 * var(--vh))), 76px);
+  text-shadow: 0 2px 0 var(--gold2), 0 4px 0 #8a6210, 0 6px 0 #5e420a, 0 10px 18px rgba(0, 0, 0, .55);
+}
+.sub {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  font-size: clamp(11px, min(3.5vw, calc(1.9 * var(--vh))), 16px);
+  margin-top: -2px;
+}
+
+/* Sovrinlar */
+.prizes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.pz {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  gap: 4px;
+  padding: clamp(6px, calc(1.1 * var(--vh)), 12px) 10px;
+  border-radius: 14px;
+  border: 1.5px solid var(--gold);
+  background: linear-gradient(135deg, rgba(7, 38, 28, .92), rgba(11, 61, 46, .88));
+  min-width: 0;
+}
+.pz b { display: block; white-space: nowrap; color: var(--gold); font-weight: 900; font-size: clamp(14px, min(4.4vw, calc(2.3 * var(--vh))), 20px); line-height: 1.05; }
+.pz span { display: block; font-weight: 600; font-size: clamp(10px, min(3vw, calc(1.6 * var(--vh))), 14px); line-height: 1.2; }
+.ic { display: flex; flex: none; gap: 1px; justify-content: center; }
+.ic svg {
+  width: clamp(16px, min(5vw, calc(2.6 * var(--vh))), 26px);
+  height: auto;
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.ic svg + svg { margin-left: -3px; }
+.ic .kaaba { width: clamp(18px, min(5.4vw, calc(2.8 * var(--vh))), 28px); stroke: var(--gold); }
+
+/* Tugma */
+.btn {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: clamp(48px, calc(7 * var(--vh)), 62px);
+  border-radius: 14px;
+  background: linear-gradient(180deg, #f3c64b, var(--gold));
+  color: #14231d;
+  font-weight: 900;
+  font-size: clamp(14px, min(4.3vw, calc(2.3 * var(--vh))), 19px);
+  letter-spacing: .02em;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(232, 185, 58, .4);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+.btn svg { width: 1.4em; height: 1.4em; fill: #229ed9; flex: none; }
+.btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .55), transparent);
+  transform: translateX(-120%);
+  animation: shine 2.6s ease-in-out infinite;
+}
+.btn:active { transform: scale(.98); }
+@keyframes pulse { 50% { transform: scale(1.025); } }
+@keyframes shine { 60%, 100% { transform: translateX(320%); } }
+
+.note { font-size: 10px; opacity: .65; margin-top: -4px; }
+
+/* ---------- Planshet ---------- */
+@media (min-width: 600px) {
+  .main { max-width: 620px; }
+}
+
+/* ---------- Kompyuter / gorizontal ekran ---------- */
+@media (min-width: 900px) and (min-aspect-ratio: 5/4) {
+  .page { padding: 18px 32px 22px; }
+  .top { justify-content: flex-start; height: clamp(60px, calc(12 * var(--vh)), 120px); }
+  .timer { top: 22px; right: 32px; padding: 8px 16px 7px; }
+  .timer small { font-size: 11px; }
+  .timer b { font-size: 34px; }
+  .main {
+    max-width: 1240px;
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    align-items: center;
+    gap: clamp(28px, 4vw, 60px);
+  }
+  .main { --cap: clamp(60px, calc(9 * var(--vh)), 90px); }
+  .car { height: min(66 * var(--vh), 40vw); margin: 0; }
+  .onix { left: -5%; width: 110%; }
+  .frame { top: 44%; }
+  .pz { flex-direction: row; text-align: left; gap: 10px; justify-content: flex-start; }
+  .side { gap: clamp(10px, calc(2 * var(--vh)), 20px); }
+  .big { font-size: clamp(56px, min(8vw, calc(12 * var(--vh))), 120px); }
+  .big span { display: block; }
+  .sub { font-size: clamp(14px, calc(2.2 * var(--vh)), 20px); }
+  .pz b { font-size: clamp(16px, calc(2.6 * var(--vh)), 24px); }
+  .pz span { font-size: clamp(12px, calc(1.8 * var(--vh)), 16px); }
+  .ic svg { width: clamp(22px, calc(3.2 * var(--vh)), 32px); }
+  .ic .kaaba { width: clamp(30px, calc(4.4 * var(--vh)), 44px); }
+  .pz b { white-space: normal; }
+  .btn { min-height: clamp(54px, calc(8 * var(--vh)), 68px); font-size: clamp(16px, calc(2.4 * var(--vh)), 21px); }
+  .note { font-size: 12px; }
+}
+
+/* Telefon gorizontal holatda: ikki ustun, ixcham */
+@media (max-height: 520px) and (orientation: landscape) {
+  .page { padding: 8px 16px; }
+  .top { height: 40px; justify-content: flex-start; }
+  .main { max-width: none; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 24px; }
+  .car { height: calc(72 * var(--vh)); margin: 0; }
+  .main { --cap: 44px; }
+  .big { font-size: clamp(30px, calc(11 * var(--vh)), 56px); }
+  .side { gap: 6px; }
+  .btn { min-height: 44px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn, .btn::after, .timer.hot { animation: none; }
+}
